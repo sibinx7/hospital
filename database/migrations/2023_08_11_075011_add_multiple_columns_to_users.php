@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('users', function (Blueprint $table) {
-          // Personal details 
+          // Personal details
           $table->integer('age')->nulllable();
           $table->enum('gender', ['male','female', 'other'])->nullable();
           $table->string('phone')->nullable();
           $table->string('state')->nullable();
           $table->string('country')->nullable();
+          $table->text('address');
           $table->string('pin')->nullable();
-          // Role 
+          // Role
           $table->enum('role', ['client', 'doctor','administrator'])->default('client');
-          // Admin/Super Admin 
+          // Admin/Super Admin
           $table->boolean('admin')->default(false);
           $table->boolean('super_admin')->default(false);
         });
