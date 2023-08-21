@@ -13,18 +13,20 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
           // Personal details
-          $table->integer('age')->nulllable();
-          $table->enum('gender', ['male','female', 'other'])->nullable();
-          $table->string('phone')->nullable();
-          $table->string('state')->nullable();
-          $table->string('country')->nullable();
-          $table->text('address');
-          $table->string('pin')->nullable();
-          // Role
-          $table->enum('role', ['client', 'doctor','administrator'])->default('client');
+          $table->integer('age')->nullable()->after('email');
+          $table->enum('gender', ['male','female', 'other'])->nullable()->after('age');
+          $table->string('phone')->nullable()->after('gender');
+					// Role
+					$table->enum('role', ['client', 'doctor','administrator'])->default('client')->after('phone');
+
+					$table->string('state')->nullable()->after('phone');
+          $table->string('country')->nullable()->after('state');
+          $table->text('address')->nullable()->after('country');
+          $table->string('pin')->nullable()->after('address');
+
           // Admin/Super Admin
-          $table->boolean('admin')->default(false);
-          $table->boolean('super_admin')->default(false);
+          $table->boolean('admin')->default(false)->after('pin');
+          $table->boolean('super_admin')->default(false)->after('admin');
         });
     }
 

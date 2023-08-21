@@ -13,9 +13,12 @@ return new class extends Migration
     {
         Schema::create('employees', function (Blueprint $table) {
             $table->id();
-            $table->date('join');
-            $table->date('reassign');
+						$table->unsignedBigInteger('user_id');
+            $table->date('join')->nullable();
+            $table->date('resign')->nullable();
             $table->timestamps();
+
+						$table->foreign('user_id')->references('id')->on('users');
         });
     }
 
