@@ -1,9 +1,10 @@
 import {urPK} from "@mui/material/locale";
 
-export const fetchAPI = (url, options) => {
-	return fetch(url, {
+export const fetchAPI = async (url, options) => {
+	const response = await  fetch(url, {
 		...options
 	})
+	return response.json();
 }
 
 export const getAPI = (url, option) => {

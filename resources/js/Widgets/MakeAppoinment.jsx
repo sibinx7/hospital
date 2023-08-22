@@ -1,18 +1,20 @@
 import {useForm} from "@inertiajs/react";
 import Datepicker from 'flowbite-datepicker/Datepicker';
 
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
+import {getDoctorByDepartment} from "@/Service/api.js";
 
 
 export default function MakeAppointment( { departments = []}){
 	// debugger
 	const elementRef = useRef(null);
+	const [ doctors, setDoctors] = useState([]);
 	const { data, setData, processing, errors } = useForm({
 		name: '',
 		email: '',
 		phone: '',
 		hid: '',
-		department: '',
+		departments: '',
 		doctor: '',
 		date: '',
 		slot: ''
@@ -22,7 +24,8 @@ export default function MakeAppointment( { departments = []}){
 		// mount
 		if(elementRef && elementRef.current){
 			new Datepicker(elementRef.current, {
-
+				minDate : new Date(),
+				autoHide: true
 			})
 		}
 		return(() => {
@@ -31,15 +34,28 @@ export default function MakeAppointment( { departments = []}){
 	}, []);
 
 
+	const callDoctorsByDepartment = async (id) => {
+		const availableDoctors = await getDoctorByDepartment(id);
+		setDoctors(availableDoctors);
+	}
+
 	const setFieldValue = (e) => {
 		if(e && e.target){
 			const { name, value } = e.target;
 			setData(name, value)
-		}
-		if(name === 'departments'){
-			// Send API to fetch Doctors
+			if(name === 'department'){
+				// Send API to fetch Doctors
+				setDoctors([])
+				if(value !== ""){
+					callDoctorsByDepartment(value);
+				}
+
+			}
+
 		}
 	}
+
+
 
 	const submit = (e) => {
 		e.preventDefault();
@@ -143,7 +159,18 @@ export default function MakeAppointment( { departments = []}){
 												<select name="doctor" id="" placeholder={`Select Doctor`} value={data.doctor} className={`w-full h-12 border-sky-500`}
 																onChange={ e => setFieldValue(e)}
 												>
-													<option value=""></option>
+													<option value="">Select</option>
+													{
+														doctors.length && (
+															<>
+																{
+																	doctors.map((doctor, index) => {
+																		return <option key={doctor.doctor_id} value={doctor.doctor_id}>{ doctor.doctor_name}</option>
+																	})
+																}
+															</>
+														)
+													}
 												</select>
 												{
 													errors.doctor && (

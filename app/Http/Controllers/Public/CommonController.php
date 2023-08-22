@@ -15,13 +15,12 @@ class CommonController extends Controller
 		$departments = Department::department_with_doctors();
 		return response()->json($departments);
 	}
-	public function doctors_by_departments(Request $request){
+	public function doctors_by_departments(Request $request, string $department_id){
 		$doctors = [];
-		if($request->get('department_id')){
-			$department_id = $request->get('department_id');
+		if($department_id){
 			$doctors = Doctor::where('department_id', $department_id)->get()->transform(fn($doctor) => [
 				'doctor_id' => $doctor->id,
-				'doctor_name' => $doctor->name
+				'doctor_name' => $doctor->name,
 			]);
 			//
 		}
