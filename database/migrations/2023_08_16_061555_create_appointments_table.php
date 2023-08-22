@@ -15,13 +15,18 @@ return new class extends Migration
             $table->id();
 						$table->string('subject');
 						$table->text('description');
+						$table->unsignedBigInteger('slot_id');
 						$table->date('selected_date');
 						$table->time('selected_time');
-						$table->unsignedBigInteger('client_id');
+						$table->string('name')->nullable(); // Backup, patient not logged
+						$table->string('email')->nullable();
+						$table->string('phone')->nullable();
+						$table->unsignedBigInteger('patient_id');
 						$table->unsignedBigInteger('doctor_id');
 						$table->unsignedBigInteger('department_id');
             $table->timestamps();
-						$table->foreign('client_id')->references('id')->on('clients');
+						$table->foreign('slot_id')->references('id')->on('slots');
+						$table->foreign('patient_id')->references('id')->on('patients');
 						$table->foreign('doctor_id')->references('id')->on('doctors');
 						$table->foreign('department_id')->references('id')->on('departments');
         });
