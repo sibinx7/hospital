@@ -16,9 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('speciality');
             $table->text('avatar')->nullable();
+						$table->text('bio')->nullable();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('department_id');
             $table->unsignedBigInteger('employee_id');
+						$table->boolean('available')->default(true);
+						$table->boolean('active')->default(true);
             $table->timestamps();
             $table->foreign('user_id')->references('id')->on('users');
             $table->foreign('department_id')->references('id')->on('departments');

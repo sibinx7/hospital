@@ -14,8 +14,13 @@ export const getAPI = (url, option) => {
 	})
 }
 export const postAPI = (url, option) => {
+	let body;
+	if(typeof option.body === "object"){
+		body = JSON.stringify(option.body)
+	}
 	return fetchAPI(url, {
 		...option,
+		body: body,
 		method: 'post'
 	})
 }

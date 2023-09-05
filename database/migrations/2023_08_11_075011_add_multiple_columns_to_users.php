@@ -17,9 +17,9 @@ return new class extends Migration
           $table->enum('gender', ['male','female', 'other'])->nullable()->after('age');
           $table->string('phone')->nullable()->after('gender');
 					// Role
-					$table->enum('role', ['client', 'doctor','administrator'])->default('client')->after('phone');
-
-					$table->string('state')->nullable()->after('phone');
+					$table->enum('role', ['patient', 'doctor','administrator'])->default('patient')->after('phone');
+					$table->text('avatar')->nullable()->after('role');
+					$table->string('state')->nullable()->after('avatar');
           $table->string('country')->nullable()->after('state');
           $table->text('address')->nullable()->after('country');
           $table->string('pin')->nullable()->after('address');

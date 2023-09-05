@@ -21,7 +21,7 @@ return new class extends Migration
 						$table->string('name')->nullable(); // Backup, patient not logged
 						$table->string('email')->nullable();
 						$table->string('phone')->nullable();
-						$table->unsignedBigInteger('patient_id');
+						$table->unsignedBigInteger('patient_id')->nullable();
 						$table->unsignedBigInteger('doctor_id');
 						$table->unsignedBigInteger('department_id');
             $table->timestamps();

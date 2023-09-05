@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('slots', function (Blueprint $table) {
             $table->id();
 						$table->integer('slot');
-						$table->time('slot_start');
-						$table->time('slot_stop');
-						$table->boolean('active');
+						$table->string('slot_start');
+						$table->string('slot_stop');
+						$table->boolean('active')->default(true);
             $table->timestamps();
         });
     }
