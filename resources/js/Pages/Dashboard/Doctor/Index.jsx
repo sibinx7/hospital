@@ -72,7 +72,7 @@ export default function Index({ auth, doctorsList }){
 								<tbody className="bg-white divide-y divide-gray-200 dark:bg-gray-800 dark:divide-gray-700">
 								{ data.map((doctor, index) => {
 									return(
-										<>
+
 											<tr key={doctor.id} className="hover:bg-gray-100 dark:hover:bg-gray-700">
 												<td className="w-4 p-4">
 													<div className="flex items-center">
@@ -119,7 +119,7 @@ export default function Index({ auth, doctorsList }){
 													</div>
 												</td>
 												<td className="p-4 space-x-2 whitespace-nowrap">
-													<Link href={``}
+													<Link href={`${doctor.id}/edit`}
 														type="button"
 														data-modal-toggle="edit-user-modal"
 														className="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
@@ -161,7 +161,7 @@ export default function Index({ auth, doctorsList }){
 													</button>
 												</td>
 											</tr>
-										</>
+
 									)
 								})}
 								</tbody>

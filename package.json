@@ -9,6 +9,7 @@
         "@headlessui/react": "^1.4.2",
         "@inertiajs/react": "^1.0.0",
         "@tailwindcss/forms": "^0.5.3",
+        "@tailwindcss/typography": "^0.5.10",
         "@vitejs/plugin-react": "^4.0.3",
         "autoprefixer": "^10.4.12",
         "axios": "^1.1.2",
@@ -22,12 +23,16 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@ckeditor/ckeditor5-build-classic": "^39.0.2",
+        "@ckeditor/ckeditor5-react": "^6.1.0",
         "@emotion/react": "^11.11.1",
         "@emotion/styled": "^11.11.0",
         "@mui/icons-material": "^5.14.3",
         "@mui/material": "^5.14.4",
+        "@tinymce/tinymce-react": "^4.3.0",
         "flowbite-datepicker": "^1.2.2",
         "flowbite-react": "^0.5.0",
+        "react-player": "^2.13.0",
         "swiper": "^10.2.0"
     }
 }

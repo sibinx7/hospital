@@ -29,9 +29,11 @@ export default function Login({ status, canResetPassword }) {
     return (
         <GuestLayout>
             <Head title="Log in" />
-
+					<div className="max-w-7xl mx-auto">
+						<div className="relative overflow-x-auto p-6">
             {status && <div className="mb-4 font-medium text-sm text-green-600">{status}</div>}
 
+						<div className={`block p-6 bg-white border border-gray-200 rounded-lg shadow`}>
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="email" value="Email" />
@@ -92,6 +94,9 @@ export default function Login({ status, canResetPassword }) {
                     </PrimaryButton>
                 </div>
             </form>
+						</div>
+						</div>
+					</div>
         </GuestLayout>
     );
 }

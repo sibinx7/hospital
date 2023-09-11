@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\FeaturesController;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -45,6 +46,10 @@ Route::prefix('/dashboard')->group(function(){
 	Route::put('/doctor/{id}/update', [DoctorController::class, 'update'])->name('dashboard.doctor.update');
 	Route::delete('/doctor/{id}', [DoctorController::class, 'destroy'])->name('dashboard.doctor.destroy');
 	/* end Doctor */
+
+	/* Features */
+	Route::get('/features/telemedicine', [FeaturesController::class, 'telemedicine'])->name('dashboard.features.telemedicine');
+	/* end Features */
 });
 
 

@@ -10,6 +10,7 @@ export default function Register() {
     const { data, setData, post, processing, errors, reset } = useForm({
         name: '',
         email: '',
+				phone: '',
         password: '',
         password_confirmation: '',
     });
@@ -29,7 +30,9 @@ export default function Register() {
     return (
         <GuestLayout>
             <Head title="Register" />
-
+					<div className="max-w-7xl mx-auto">
+						<div className="relative overflow-x-auto p-6">
+							<div className={`block p-6 bg-white border border-gray-200 rounded-lg shadow`}>
             <form onSubmit={submit}>
                 <div>
                     <InputLabel htmlFor="name" value="Name" />
@@ -64,6 +67,19 @@ export default function Register() {
 
                     <InputError message={errors.email} className="mt-2" />
                 </div>
+							<div className="mt-4">
+								<InputLabel htmlFor={'phone'} value={`phone`}/>
+								<TextInput
+									id={`phone`}
+									type={`tel`}
+									name={`phone`}
+									value={data.phone}
+									className={`mt-1 block w-full`}
+									autoComplete={`phone`}
+									onChange={(e) => setData('phone', e.target.value)}
+									required
+								/>
+							</div>
 
                 <div className="mt-4">
                     <InputLabel htmlFor="password" value="Password" />
@@ -112,6 +128,9 @@ export default function Register() {
                     </PrimaryButton>
                 </div>
             </form>
+							</div>
+						</div>
+					</div>
         </GuestLayout>
     );
 }
