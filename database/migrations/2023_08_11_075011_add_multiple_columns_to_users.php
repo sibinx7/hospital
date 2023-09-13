@@ -27,6 +27,8 @@ return new class extends Migration
           // Admin/Super Admin
           $table->boolean('admin')->default(false)->after('pin');
           $table->boolean('super_admin')->default(false)->after('admin');
+
+					$table->boolean('is_online')->default(false);
         });
     }
 
@@ -36,7 +38,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-          $table->dropColumn(['age','gender','phone','state','country','pin','role','admin', 'super_admin']);
+          $table->dropColumn(['age','gender','phone','state','country','pin','role','admin', 'super_admin', 'is_online']);
         });
     }
 };
