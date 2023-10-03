@@ -1,6 +1,18 @@
 import {urPK} from "@mui/material/locale";
+import getCookie from "../Utilities/helper";
+
+const XSRFToken = getCookie('XSRF-TOKEN');
 
 export const fetchAPI = async (url, options) => {
+  if(XSRFToken){
+    options = {
+      ...options,
+      headers: {
+        ...(options.headers),
+        "X-CSRF-Token": XSRFToken
+      }
+    }
+  }
 	const response = await  fetch(url, {
 		...options
 	})

@@ -29,5 +29,9 @@ Route::prefix('public')->group(function(){
 });
 
 Route::prefix('auth')->group(function(){
-	Route::put('/department/{id}/update', [DepartmentController::class, 'update'])->name('auth_department_update');
+	Route::put('/department/{id}/update', [DepartmentController::class, 'update'])->name('auth_department_update');  
+});
+
+Route::middleware('auth:sanctum')->prefix('authenticated')->group(function(){
+  Route::get('/online-doctors', [ CommonController::class, 'list_of_online_doctors'])->name('authenticated_list_of_online_users');
 });

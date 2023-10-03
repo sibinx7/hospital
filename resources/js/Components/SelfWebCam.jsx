@@ -1,7 +1,8 @@
 import {useEffect, useRef, useState} from "react";
 import ReactPlayer from "react-player";
 
-export default function SelfWebCam(){
+
+export default function SelfWebCam({ ...props }){
 
 	const [ ownStream, setOwnStream ] = useState(null);
 	const videoRef = useRef(null);
@@ -15,9 +16,11 @@ export default function SelfWebCam(){
 				video: true, audio: true
 			})
 			// const url = URL.createObjectURL(stream)
+
 			const video = videoRef.current;
 			video.onloadedmetadata = function(e) {
 				video.play();
+        props.ownMediaCallback()
 			};
 			video.srcObject = stream;
 			setOwnStream(stream)
@@ -98,7 +101,7 @@ export default function SelfWebCam(){
 				<div className={`mb-3`}>
 					{/*<ReactPlayer url={ownStream} />*/}
 
-					<video className={`w-full aspect-auto`} width={`100%`}  ref={ videoRef }>
+					<video className={`w-full aspect-auto -scale-x-100`} width={`100%`}  ref={ videoRef }>
 
 					</video>
 				</div>

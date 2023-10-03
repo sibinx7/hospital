@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Appointment;
 use App\Models\Department;
 use App\Models\Doctor;
+use App\Models\User;
 use App\Models\Slot;
 use Illuminate\Http\Request;
 use Mockery\Exception;
@@ -94,4 +95,13 @@ class CommonController extends Controller
 			"success" => true,
 		], 200);
 	}
+
+  public function list_of_online_doctors(){
+    $online_doctors = User::where("role", "doctor")->where('is_online', true)->get()->toArray();
+
+    return response()->json([
+      "online_doctors" => $online_doctors,
+      "success" => true 
+    ]);
+  }
 }

@@ -3,11 +3,14 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
-import { Link } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 import {Avatar} from "flowbite-react";
 
 export default function Authenticated({ user, header, children }) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
+    if(!user){
+      router.visit('/')
+    }
 
     return (
         <div className="min-h-screen bg-gray-100">

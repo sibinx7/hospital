@@ -30,3 +30,8 @@ export const  bookNewAppointment = (body) => {
 		body
 	})
 }
+
+
+export const getOnlineDoctors = () => {
+  return getAPI(`/api/authenticated/online-doctors`)
+}
