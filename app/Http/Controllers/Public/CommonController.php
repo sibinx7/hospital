@@ -10,6 +10,9 @@ use App\Models\User;
 use App\Models\Slot;
 use Illuminate\Http\Request;
 use Mockery\Exception;
+use Illuminate\Support\Facades\Auth;
+use App\Events\UserOnline;
+use Illuminate\Support\Facades\Log;
 
 class CommonController extends Controller
 {
@@ -28,7 +31,7 @@ class CommonController extends Controller
 			]);
 			//
 		}
-		return response()->json($doctors);
+		return response()->json($doctors, 200);
 	}
 
 	public function booked_slot_by_doctor_date(Request $request){
@@ -52,12 +55,12 @@ class CommonController extends Controller
 					->toArray();
 		}
 //		dd(is_array($booked_slots));
-		return response()->json($booked_slots);
+		return response()->json($booked_slots, 200);
 	}
 
 	public function get_all_slots(){
 		$slots = Slot::all()->toArray();
-		return response()->json($slots);
+		return response()->json($slots, 200);
 	}
 
 	public function saveAppointment(Request $request){
@@ -102,6 +105,35 @@ class CommonController extends Controller
     return response()->json([
       "online_doctors" => $online_doctors,
       "success" => true 
-    ]);
+    ], 200);
+  }
+
+
+  public function browser_or_tab_close(Request $request){
+    
+    $auth = Auth::user();
+    if($auth){
+      $user = [
+        "id" => $auth->id,
+        "name" => $auth->name,
+        "role" => $auth->role 
+      ];
+      UserOnline::dispatch($user, false);
+    }
+
+
+  
+    return response()->json([
+      "message" => "User successfully set online to 0"
+    ],200);
+  }
+
+  public function beacon_test(){
+
+    Log::info("Browser Beacon feature test");
+
+    return response()->json([
+      "message" => "Beacon message"
+    ],200);
   }
 }

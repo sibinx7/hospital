@@ -26,6 +26,10 @@ Route::prefix('public')->group(function(){
 	Route::get('/get-all-slots', [CommonController::class, 'get_all_slots'])->name('get_all_slots');
 	Route::post('/slot-availability', [CommonController::class, 'booked_slot_by_doctor_date'])->name('public_check_slot_availability');
 	Route::post('/book-appointment', [ CommonController::class, 'saveAppointment'])->name('book_appointment');
+  
+  # Browser or Tab close API 
+  Route::post('/browser-or-tab-close', [CommonController::class, 'browser_or_tab_close'])->name('browser_or_tab_close');
+  
 });
 
 Route::prefix('auth')->group(function(){
@@ -35,3 +39,5 @@ Route::prefix('auth')->group(function(){
 Route::middleware('auth:sanctum')->prefix('authenticated')->group(function(){
   Route::get('/online-doctors', [ CommonController::class, 'list_of_online_doctors'])->name('authenticated_list_of_online_users');
 });
+
+Route::post('/beacon-test', [CommonController::class, 'beacon_test'])->name('beacon_test');

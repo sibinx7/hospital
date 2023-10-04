@@ -61,3 +61,14 @@ export const deleteAPI = (url, option) => {
 }
 
 
+export const setOfflineWhenBrowserOrTabClose = () => {
+  const options = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    keepalive: true,
+    method: 'POST' 
+  };
+  // return fetchAPI(`/api/public/browser-or-tab-close`, options)
+  return fetchAPI(`/api/beacon-test`, options)
+}
