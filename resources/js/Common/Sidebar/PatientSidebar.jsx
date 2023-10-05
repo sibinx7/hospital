@@ -7,12 +7,13 @@ export default function PatientSidebar(){
     <>
     <li>
       <Link href="/dashboard/features/telemedicine">
-        <span>
-          <img src={ SidebarIcons.TeleMedicine } alt="Telemedicine" />
-        </span>
-        <span>
-          TeleMedicine 
-        </span>
+        <div className="flex items-center">
+          <img className="h-7 mr-1" src={ SidebarIcons.TeleMedicine } alt="Telemedicine" />
+          <span>
+            TeleMedicine 
+          </span>
+        </div>
+
       </Link>
     </li>
     <li>

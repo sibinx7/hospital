@@ -38,7 +38,7 @@ return new class extends Migration
     public function down(): void
     {
         Schema::table('users', function (Blueprint $table) {
-          $table->dropColumn(['age','gender','phone','state','country','pin','role','admin', 'super_admin', 'is_online']);
+          $table->dropColumn(['age','gender','phone','state','country','pin','role','avatar','admin', 'super_admin', 'is_online']);
         });
     }
 };

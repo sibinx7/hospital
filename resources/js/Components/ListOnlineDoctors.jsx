@@ -3,12 +3,13 @@ import { getOnlineDoctors } from "@/Service/api";
 import {useEffect} from "react";
 import userProfile from "../../images/user/user.png";
 
-export default function ListOnlineDoctors() {
+export default function ListOnlineDoctors({ isOnCall=false, ...props }) {
 
 	/**
 	 * @description Get list of online doctors from api endpoint
 	 */
-  const [ onlineDoctors, setOnlineDoctors ] = useState([])
+  const [ onlineDoctors, setOnlineDoctors ] = useState([]);
+  const [ selectedDoctor, setSelectedDoctor] = useState(null);
 	const listOfDoctor = async () => {
     const response  = await getOnlineDoctors();
     if(response && Array.isArray(response.online_doctors)){
@@ -34,7 +35,10 @@ export default function ListOnlineDoctors() {
 
   const handleInitiateCall = (e, doctor) => {
     e.preventDefault();
-    props.initiateCallToDoctor(doctor)
+    if(doctor){      
+      setSelectedDoctor(doctor)
+      props.initiateCallToDoctor(doctor)
+    }    
   }
 
 	return(<>
@@ -42,8 +46,8 @@ export default function ListOnlineDoctors() {
       <div>
         {
           onlineDoctors.length && (
-            <div className="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow">
-              <ul className="max-w-md divide-y divide-gray-200 dark:divide-gray-700">
+            <div className="block max-w-sm  bg-white border border-gray-200 rounded-lg shadow">
+              <ul className={`max-w-md divide-y divide-gray-200 dark:divide-gray-700 ${isOnCall && 'disabled-online-doctor'  }`}>
                 {
                   onlineDoctors.map((doctor, index) => {
                     if(!doctor.avatar){
@@ -51,8 +55,8 @@ export default function ListOnlineDoctors() {
                     }
                     return(
                       <>
-                        <li className="pt-3 pb-3 sm:pb-4 cursor-pointer" key={doctor.id}>
-                          <div className="flex items-center space-x-4" onClick={ e => handleInitiateCall(e, doctor)}>
+                        <li className={`cursor-pointer `} key={doctor.id}>
+                          <div className={`p-6 flex items-center space-x-4 ${(selectedDoctor && (selectedDoctor.id === doctor.id)) && 'bg-grey-100'}`} onClick={ e => handleInitiateCall(e, doctor)}>
                             <div className="flex-shrink-0">
                               <img className="w-8 h-8 rounded-full" src={doctor.avatar} alt={ doctor.name }/>
                             </div>

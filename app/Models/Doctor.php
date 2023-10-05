@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 class Doctor extends Model
@@ -43,7 +44,7 @@ class Doctor extends Model
 			if($this->user->avatar){
 				return $this->user->avatar;
 			}
-			return '';
+			return Storage::get('defaults/common-doctor-male.jpg');;
 		}
 
 		public function getShortBioAttribute($value){

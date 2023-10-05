@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\Storage;
 use Laravel\Sanctum\HasApiTokens;
 
 class User extends Authenticatable
@@ -22,6 +23,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'avatar'
     ];
 
     /**
@@ -43,6 +45,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function getAvatarAttribute(){      
+      if(property_exists($this, 'avatar') && $this->avatar){
+        return $this->avatar;
+      }
+      if($this->role === "doctor"){
+        $file_name = "common-doctor-male.jpg";
+        if($this->gender === "female"){
+          $file_name = "common-doctor-male.jpg";
+        }
+        return Storage::url('public/defaults/'.$file_name);
+      }
+      return "";
+
+    }
 
 		public function doctor(): HasOne{
 			return $this->hasOne(Doctor::class);

@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+
+.telemedicine-background{
+  background-image: url('../images/background/telemedicine-background.jpg');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+}
+
+.disabled-online-doctor{
+  pointer-events: none;
+  opacity: .21;
+  cursor: not-allowed;
+}

@@ -8,12 +8,14 @@ import ListOnlineDoctors from "@/Components/ListOnlineDoctors";
 
 import callVideo from "../../../../icons/callmessage/call-phone.svg";
 import messageIcon from "../../../../icons/callmessage/message-icon.svg";
+import TeleMedicinePopup from "./TeleMedicinePopup";
 export default function Index({ auth }){
 
   const otherCamVideo = useRef();
 
   const [ onCall, setOnCall ] = useState(false);
   const [ selectedDoctor, setSelectedDoctor ] = useState(null);
+  const [ isCalling, setIsCalling ] = useState(false);
 
   const PeerOwn = new Peer( { initiator: true });
   const PeerOther = new Peer();
@@ -53,10 +55,15 @@ export default function Index({ auth }){
 
   const handleInitiateTeleCall = (e) => {
     e.preventDefault();
+    setIsCalling(true);
   }
 
   const handleInitiateMessage = (e) => {
     e.preventDefault();
+  }
+
+  const handleTeleMedicinePopupClose = (e) => {
+    setIsCalling(false);
   }
 	return(
 		<>
@@ -77,13 +84,13 @@ export default function Index({ auth }){
 										</div>
                     <div >
                       { /* if there no call then show list of online doctors  */}
-                      { !onCall && <ListOnlineDoctors initiateCallToDoctor={ handleInitiateCall }/> }
+                      {  <ListOnlineDoctors isOnCall={onCall} initiateCallToDoctor={ handleInitiateCall }/> }
                       { /* If User on Call show On going Call, Doctor, Disconnect, Mute buttons  */}
 
                     </div>
 									</div>
 									<div className="basis-8/12">
-                    <div className="flex w-full flex-col">
+                    <div className="flex w-full flex-col h-full">
                       <div className="flex w-full h-full justify-center border-lime-100">
                         {/* If no doctor selected, show some telemedicine features */}
                         <div className="">
@@ -92,15 +99,15 @@ export default function Index({ auth }){
                         { /* end telemedicine fetaures */}
                         
                         {/* Start: User selected Doctor */}
-                        <div className="">
+                        <div className="w-full h-full">
                           {/* Start: User Start Video/Audio Screen with optional message */}
-                          <div className="">
+                          <div className="w-full h-full">
                             <div className="">
 
                             </div>
-                            <div className="">
-                              <div className="flex justify-center">
-                                <div className="flex justify-center">
+                            <div className="telemedicine-background w-full h-full items-center justify-center flex">
+                              <div className="flex justify-center items-center">
+                                <div className="flex justify-center items-center">
                                   <button  onClick={e => handleInitiateTeleCall(e) } className="flex align-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
                                     <span>
                                       <img className="h-5" src={callVideo} alt="Call" />
@@ -109,7 +116,7 @@ export default function Index({ auth }){
                                       Call
                                     </span>
                                   </button>
-                                  <button onClick={ e => handleInitiateMessage(e) } className="flex align-center justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                                  <button onClick={ e => handleInitiateMessage(e) } className="ml-2 flex align-center justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
                                     <span>
                                       <img className="h-5" src={messageIcon} alt="Message" />
                                       </span>
@@ -136,6 +143,9 @@ export default function Index({ auth }){
 							</div>
 						</div>
 					</div>
+          <div>
+            { isCalling && <TeleMedicinePopup doctor={selectedDoctor} show={isCalling} closeModal={handleTeleMedicinePopupClose} />}
+          </div>
 				</div>
 			</AuthenticatedLayout>
 		</>
