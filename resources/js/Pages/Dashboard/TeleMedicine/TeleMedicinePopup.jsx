@@ -50,6 +50,7 @@ export default function TeleMedicinePopup({ show=false, id='default-telemedicine
           <img class="w-[120px] h-[120px] p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={ doctor.avatar} alt={doctor.name}/>
           </div>
         </div>
+        <div className="flex justify-center text-center">
         <table className="table">
           <tbody>
             <tr>
@@ -70,6 +71,8 @@ export default function TeleMedicinePopup({ show=false, id='default-telemedicine
            }
           </tbody>
         </table>
+        </div>
+
       </div>
       {/* Modal footer */}
       <div className="flex items-center justify-center p-6 space-x-2 border-t border-gray-200 rounded-b dark:border-gray-600">

@@ -6,9 +6,10 @@ import { useRef, useState  } from "react";
 import ListOnlineDoctors from "@/Components/ListOnlineDoctors";
 
 
-import callVideo from "../../../../icons/callmessage/call-phone.svg";
-import messageIcon from "../../../../icons/callmessage/message-icon.svg";
+
 import TeleMedicinePopup from "./TeleMedicinePopup";
+import TeleMedicineCallStart from "./TeleMedicineCallStart";
+import TeleMedicineBenefits from "./TeleMedicineBenefits";
 export default function Index({ auth }){
 
   const otherCamVideo = useRef();
@@ -106,26 +107,20 @@ export default function Index({ auth }){
 
                             </div>
                             <div className="telemedicine-background w-full h-full items-center justify-center flex">
-                              <div className="flex justify-center items-center">
-                                <div className="flex justify-center items-center">
-                                  <button  onClick={e => handleInitiateTeleCall(e) } className="flex align-center justify-center bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
-                                    <span>
-                                      <img className="h-5" src={callVideo} alt="Call" />
-                                    </span>
-                                    <span className="ml-2">
-                                      Call
-                                    </span>
-                                  </button>
-                                  <button onClick={ e => handleInitiateMessage(e) } className="ml-2 flex align-center justify-center bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                                    <span>
-                                      <img className="h-5" src={messageIcon} alt="Message" />
-                                      </span>
-                                      <span className="ml-2">
-                                        Message
-                                      </span>                                  
-                                  </button>
-                                </div>
-                              </div>
+                              {
+                                !selectedDoctor && (
+                                  <div>
+                                    <TeleMedicineBenefits/> 
+                                  </div>
+                                )
+                              }
+                              {
+                                selectedDoctor && (
+                                  <div className="flex justify-center items-center">
+                                    <TeleMedicineCallStart doctor={selectedDoctor}/>
+                                  </div>  
+                                )
+                              }
                             </div>
                           </div>
                           {/* End: User Start Video/Audio Screen with optional message */}
