@@ -47,7 +47,7 @@ export default function TeleMedicinePopup({ show=false, id='default-telemedicine
       <div className="p-6 space-y-6">
         <div className="flex justify-center align-center">
           <div className="">
-          <img class="w-[120px] h-[120px] p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={ doctor.avatar} alt={doctor.name}/>
+          <img className="w-[120px] h-[120px] p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500" src={ doctor.avatar} alt={doctor.name}/>
           </div>
         </div>
         <div className="flex justify-center text-center">

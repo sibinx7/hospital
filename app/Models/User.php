@@ -61,11 +61,16 @@ class User extends Authenticatable
 
     }
 
+    public function employee(): HasOne {
+			return $this->hasOne(Employee::class);
+		}
+
+    public function administrator():HasOne {
+      return $this->hasOne(Administrator::class);
+    }
+
 		public function doctor(): HasOne{
 			return $this->hasOne(Doctor::class);
-		}
-		public function employee(): HasOne {
-			return $this->hasOne(Employee::class);
 		}
 
 		public function patient(): HasOne {

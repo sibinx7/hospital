@@ -20,6 +20,10 @@ class Employee extends Model
 			return $this->hasOne(Doctor::class);
 		}
 
+    public function administrator():HasOne {
+      return $this->hasOne(Administrator::class);
+    }
+
 
 		public function user():BelongsTo {
 			return $this->belongsTo(User::class);

@@ -18,7 +18,7 @@ export default function MainSidebar({ user }){
           </li>
           { role=== 'patient' &&  <PatientSidebar/> }
           { role === 'doctor' && <DoctorSidebar/> }
-          { role === 'admin' && <AdminSidebar/> }
+          { role === 'administrator' && <AdminSidebar/> }
           <li>
             <hr />
           </li>

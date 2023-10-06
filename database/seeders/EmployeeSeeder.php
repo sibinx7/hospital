@@ -17,7 +17,7 @@ class EmployeeSeeder extends Seeder
     public function run(): void
     {
         //
-			$doctor_employees = User::where('role', 'doctor')->get()->toArray();
+			$doctor_employees = User::where('role', 'administrator')->get()->toArray();
 			if(sizeof($doctor_employees)){
 				foreach ($doctor_employees as $employee){
 					Employee::create([

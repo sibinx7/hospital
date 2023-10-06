@@ -39,8 +39,8 @@ export default function TeleMedicineBenefits(){
               <li key={benefit.id} data-index={index}>
                 <div className="flex items-center mb-3">
                   <div className="mr-1">
-                    <span className="block p-4 rounded-full bg-blue-500">
-                      <img className="h-5 text-white" src={CommonIcons.RocketIcon} alt={benefit.content} />
+                    <span className="block p-3 rounded-full bg-blue-500">
+                      <img className="h-7 text-white" src={CommonIcons.RocketIcon} alt={benefit.content} />
                     </span>
                   </div>
                   <div className="block tran">

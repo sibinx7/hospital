@@ -10,42 +10,44 @@ import ListOnlineDoctors from "@/Components/ListOnlineDoctors";
 import TeleMedicinePopup from "./TeleMedicinePopup";
 import TeleMedicineCallStart from "./TeleMedicineCallStart";
 import TeleMedicineBenefits from "./TeleMedicineBenefits";
-export default function Index({ auth }){
+export default function Index({ auth = {} }){
 
   const otherCamVideo = useRef();
+  const { user } = auth;
+  let isPatient = false;
+  if(user){
+    isPatient = user.role === 'patient';
+  }
 
   const [ onCall, setOnCall ] = useState(false);
   const [ selectedDoctor, setSelectedDoctor ] = useState(null);
   const [ isCalling, setIsCalling ] = useState(false);
 
-  const PeerOwn = new Peer( { initiator: true });
-  const PeerOther = new Peer();
+  const PeerOwn = new Peer( { initiator: isPatient });
+ 
 
+  const [peerOwnSignal, setPeerOwnSignal] = useState(null);
+ 
 
   const handleOwnMediaCallback = (stream) => {
     PeerOwn.addStream(stream);
   }
 
   PeerOwn.on('signal', (data) => {
-    PeerOther.signal(data)
-  });
-
-  PeerOther.on('signal', (data) => {
-    PeerOwn.signal(data)
-  });
-
-  PeerOther.on('stream', (stream) => {
     
+    // PeerOther.signal(data)
+    setPeerOwnSignal(data);
   });
+
+ 
+  
 
   PeerOwn.on('connect', () => {
     PeerOwn.send('Hey! Peer Own Send');
     
   })
 
-  PeerOther.on('data', (data) => {
-    console.log('Message from PeerOther', data)
-  })
+ 
   
   const handleInitiateCall = (doctor) => {
     if(doctor){
@@ -65,6 +67,11 @@ export default function Index({ auth }){
 
   const handleTeleMedicinePopupClose = (e) => {
     setIsCalling(false);
+  }
+
+  const cancelSelectedDoctor = (e) => {
+    setSelectedDoctor(null);
+    setOnCall(false)
   }
 	return(
 		<>
@@ -117,7 +124,10 @@ export default function Index({ auth }){
                               {
                                 selectedDoctor && (
                                   <div className="flex justify-center items-center">
-                                    <TeleMedicineCallStart doctor={selectedDoctor}/>
+                                    <TeleMedicineCallStart doctor={selectedDoctor} 
+                                      handleInitiateTeleCall={handleInitiateTeleCall }
+                                      handleInitiateMessage={handleInitiateMessage}
+                                      cancelSelectedDoctor={cancelSelectedDoctor}/>
                                   </div>  
                                 )
                               }
