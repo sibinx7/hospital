@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\Department;
+use App\Services\FileUploadService;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Support\Str;
 
 
 class DepartmentController extends Controller
@@ -30,7 +32,37 @@ class DepartmentController extends Controller
     ]);
 	}
 
-	public function store(Request $request){
+	public function store(Request $request, FileUploadService $fileUploadService){
+    $create_department = Validator::make($request->all(),[
+      'name' => 'required',
+      'validator' => 'required'
+    ]);
+    $department_data = [
+      'name' => $request->get('name'),
+      'description' => $request->get('description'),
+      'key' => Str::slug($request->get('name'), '_')
+    ];
+    $department_icon = $request->file('icon');
+    $department_image = $request->file('image');
+
+    $department = Department::create($department_data);
+    $department_update = [];
+    if($department_icon){
+      $department_icon_path = $fileUploadService->department_upload($department_icon, $department->id, 'department-icon');
+      if($department_icon_path){
+        $department_update['icon'] = $department_icon_path;
+      }
+    }
+
+    if($department_image){
+      $department_image_path = $fileUploadService->department_upload($department_image, $department->id, 'department-image');
+      if($department_image_path){
+        $department_update['image'] = $department_image_path;
+      }
+    }
+    $department->update($department_update);
+
+    return to_route('dashboard.department.index');
 
 	}
 
@@ -41,7 +73,7 @@ class DepartmentController extends Controller
 		]);
 	}
 
-	public function update(Request $request, String $id){
+	public function update(Request $request, String $id, FileUploadService $fileUploadService){
 
 		$department_data = [];
 		$department_icon = $request->file('icon');
@@ -57,30 +89,16 @@ class DepartmentController extends Controller
 			$department_data['description'] = $request->get('description');
 		}
 
-		if(!Storage::exists('public/departments')){
-			Storage::makeDirectory('public/departments');
-		}
+
 		if($department_icon){
-			$department_icon_path = $request->file('icon')->storePubliclyAs(
-				'public/departments',
-				'department-'.$id.'-'.$department_icon->getClientOriginalName(),
-				[
-					'disk' => 'local'
-				]
-			);
+      $department_icon_path = $fileUploadService->department_upload($department_icon, $id, 'department-icon');
 			if($department_icon_path){
 				$department_data['icon'] = $department_icon_path;
 			}
 		}
 
 		if($department_image){
-			$department_img_path = $request->file('image')->storePubliclyAs(
-				'public/departments',
-				'department-image'.$id.'-'.$department_image->getClientOriginalName(),
-				[
-					'disk' => 'local'
-				]
-			);
+			$department_img_path = $fileUploadService->department_upload($department_image, $id, 'department-image');
 			if($department_img_path){
 				$department_data['image'] = $department_img_path;
 			}
