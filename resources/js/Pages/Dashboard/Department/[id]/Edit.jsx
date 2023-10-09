@@ -56,27 +56,39 @@ export default function Edit({ auth, department }){
 			>
 				<Head title="Department" />
 				<div>
-					<div className="max-w-7xl mx-auto">
+					<div className="w-full mx-auto">
 						<div className="relative overflow-x-auto p-6">
 							<div className={`block p-6 bg-white border border-gray-200 rounded-lg shadow`}>
 								<form onSubmit={submit } encType={`multipart/form-data`} action="" method={`post`}>
 									<input type="hidden" name={`_method`} value={`put`}/>
+                  <div className="flex flex-col w-full mb-5">
+                    <div className="form-group mb-5">
+                      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="department_name">
+													Department Name
+                      </label>
+                      <input name={`name`} disabled={true} readOnly={true} value={data.name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="department-name" type="text" placeholder="Department Name"
+                        onChange={e => setData(e.target.name, e.target.value)}
+                      />
+                    </div>
+                    <div className="form-group">
+                      <label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="department_description">
+                        Description
+                      </label>
+                      <textarea name={`description`}  cols="30" rows="10" 
+                        value={ data.description}
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="department-description" type="text" placeholder="Department Description" onChange={e => setData(e.target.name, e.target.value) }>                      
+                        { data.description }
+                      </textarea>												
+                    </div>
+                  </div>
 									<div className="gap-4 columns-2 flex">
 										<div className="w-full flex flex-col">
-											<div className="form-group mb-5">
-												<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="department_name">
-													Department Name
-												</label>
-												<input name={`name`} disabled={true} readOnly={true} value={data.name} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="department-name" type="text" placeholder="Department Name"
-													onChange={e => setData(e.target.name, e.target.value)}
-												/>
-											</div>
 											<div className="form-group mb-5">
 												<label className={`block text-gray-700 text-sm font-bold mb-2`} htmlFor="">Image</label>
 												{
 													imagePath && (
 														<div className={`mt-3`}>
-															<img src={ imagePath } alt={data.image}/>
+															<img className='h-96' src={ imagePath } alt={data.image}/>
 														</div>
 													)
 												}
@@ -106,22 +118,15 @@ export default function Edit({ auth, department }){
 											</div>
 
 										</div>
+                    
 										<div className="w-full flex flex-col">
-											<div className="form-group mb-5">
-												<label className="block text-gray-700 text-sm font-bold mb-2" htmlFor="department_description">
-													Description
-												</label>
-												<input name={`description`} value={data.description} className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline" id="department-description" type="text" placeholder="Department Description"
-													onChange={e => setData(e.target.name, e.target.value) }
-												/>
-											</div>
 												<div className="form-group mb-5">
 													<label className={`block text-gray-700 text-sm font-bold mb-2`} htmlFor="">Icons</label>
 
 													{
 														iconPath && (
 															<div className={`mt-3`}>
-																<img src={ iconPath } alt={data.name}/>
+																<img className='h-24' src={ iconPath } alt={data.name}/>
 															</div>
 														)
 													}

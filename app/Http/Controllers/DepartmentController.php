@@ -24,7 +24,10 @@ class DepartmentController extends Controller
 	}
 
 	public function create(){
-
+    $departments = Department::all()->toArray();
+    return Inertia::render('Dashboard/Department/Create',[
+      'departments' => $departments 
+    ]);
 	}
 
 	public function store(Request $request){

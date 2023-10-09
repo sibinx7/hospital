@@ -30,7 +30,7 @@ Route::prefix('/dashboard')->group(function(){
 	})->name('dashboard');
 
   /* Administrator */
-  Route::middleware(['auth.administrator'])->prefix('admin')->group(function(){
+  Route::middleware(['auth.administrator'])->prefix('staff')->group(function(){
     Route::get('/doctor/create', [DoctorController::class, 'create'])->name('dashboard.doctor.create');
     Route::post('/doctor/store', [DoctorController::class, 'store'])->name('dashboard.doctor.store');
 	  /* Department */
