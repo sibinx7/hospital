@@ -5,6 +5,7 @@ use App\Http\Controllers\WelcomeController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\FeaturesController;
+use App\Models\Doctor;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -31,6 +32,8 @@ Route::prefix('/dashboard')->group(function(){
 
   /* Administrator */
   Route::middleware(['auth.administrator'])->prefix('staff')->group(function(){
+    Route::get('/doctor/index', [DoctorController::class, 'index'])->name('dashboard.doctor.index');
+    Route::get('/doctor/{id}/show', [DoctorController::class, 'show'])->name('dashboard.doctor.show');
     Route::get('/doctor/create', [DoctorController::class, 'create'])->name('dashboard.doctor.create');
     Route::post('/doctor/store', [DoctorController::class, 'store'])->name('dashboard.doctor.store');
 	  /* Department */

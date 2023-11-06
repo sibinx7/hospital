@@ -22,11 +22,16 @@ class DoctorController extends Controller
 	}
 
 	public function show(string $id){
-
+    $doctor = Doctor::find($id);
+    return Inertia::render('Dashboard/Doctor/Show', [
+      'doctor' => $doctor
+    ]);
 	}
 
 	public function create(){
-
+    return Inertia::render('Dashboard/Doctor/Create',[
+      
+    ]);
 	}
 
 	public function store(Request $request){

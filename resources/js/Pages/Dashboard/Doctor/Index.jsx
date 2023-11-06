@@ -90,7 +90,9 @@ export default function Index({ auth, doctorsList }){
 
 													<div className="text-sm font-normal text-gray-500 dark:text-gray-400">
 														<div className="text-base font-semibold text-gray-900 dark:text-white">
-															{ doctor.name }
+															<Link href={`/dashboard/staff/doctor/${doctor.id}/show`}>
+                                { doctor.name }
+                              </Link>
 														</div>
 														<div className="text-sm font-normal text-gray-500 dark:text-gray-400">
 
