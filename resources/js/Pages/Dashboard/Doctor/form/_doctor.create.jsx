@@ -1,161 +1,78 @@
-import { useForm } from '@inertiajs/react';
+import { useState } from "react";
+import DoctorUserForm from "./_doctor.user";
+import DoctorAccademicForm from "./_doctor.accademic";
+import DoctorEmployeeForm from "./_doctor.employee";
 
 export default function DoctorCreateForm() {
+	const [activeTab, setActiveTab] = useState(0);
 
-  const { data, setData, post, processing, errors } = useForm({
-    email: '',
-    password: '',
-    remember: false,
-  });
-
-  const handleSubmit = () => {
-
+	const changeActiveTab = (e, index) => {
+    if(activeTab !== index){
+      setActiveTab(index)
+    }
+    
+  };
+  const isActiveElement = (index, element='div') => {
+    if(element === 'li'){
+      return activeTab === index ? 'text-blue-600 dark:text-blue-500': 'cursor-pointer text-gray-500 dark:text-gray-400';
+    }
+    return activeTab === index ? 'border-blue-600 dark:border-blue-500': 'border-gray-500 dark:border-gray-400';
+    
   }
 
 	return (
-		<div className="">
-      <form onSubmit={ handleSubmit }>
-			<div className="grid gap-6 mb-6 md:grid-cols-2">
-				<div>
-					<label
-						htmlFor="first_name"
-						className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-					>
-						First name
-					</label>
-					<input
-						type="text"
-						id="first_name"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-						placeholder="John"
-						required=""
-					/>
-				</div>
-				<div>
-					<label
-						htmlFor="last_name"
-						className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-					>
-						Last name
-					</label>
-					<input
-						type="text"
-						id="last_name"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-						placeholder="Doe"
-						required=""
-					/>
-				</div>
-
-				<div>
-					<label
-						htmlFor="phone"
-						className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-					>
-						Phone number
-					</label>
-					<input
-						type="tel"
-						id="phone"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-						placeholder="123-45-678"
-						pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}"
-						required=""
-					/>
-				</div>
-				<div>
-					<label
-						htmlFor="website"
-						className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-					>
-						Website URL
-					</label>
-					<input
-						type="url"
-						id="website"
-						className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-						placeholder="flowbite.com"
-						required=""
-					/>
-				</div>
-
+		<div>
+			<div className="block mb-5">
+				<ol className="items-center w-full space-y-4 sm:flex sm:space-x-8 sm:space-y-0">
+					<li className={`flex items-center ${isActiveElement(0, 'li')} `}>
+						<div
+							className="flex space-x-2.5 items-center"
+							onClick={(e) => changeActiveTab(e,0)}
+						>
+							<span className={`flex items-center justify-center w-8 h-8 border  rounded-full shrink-0 ${isActiveElement(0)}`}>
+								1
+							</span>
+							<span>
+								<h3 className="font-medium leading-tight">User info</h3>
+								<p className="text-sm">Step details here</p>
+							</span>
+						</div>
+					</li>
+					<li className={`flex items-center ${isActiveElement(1, 'li')} `}>
+						<div
+							className="flex space-x-2.5 items-center"
+							onClick={(e) => changeActiveTab(e,1)}
+						>
+							<span className={`flex items-center justify-center w-8 h-8 border  rounded-full shrink-0 ${isActiveElement(1)}`}>
+								2
+							</span>
+							<span>
+								<h3 className="font-medium leading-tight">Accademic info</h3>
+								<p className="text-sm">Step details here</p>
+							</span>
+						</div>
+					</li>
+					<li className={`flex items-center ${isActiveElement(2, 'li')}`}>
+						<div
+							className="flex space-x-2.5 items-center"
+							onClick={(e) => changeActiveTab(e,2)}
+						>
+							<span className={`flex items-center justify-center w-8 h-8 border  rounded-full shrink-0 ${isActiveElement(2)}`}>
+								3
+							</span>
+							<span>
+								<h3 className="font-medium leading-tight">Employee info</h3>
+								<p className="text-sm">Step details here</p>
+							</span>
+						</div>
+					</li>
+				</ol>
 			</div>
-			<div className="mb-6">
-				<label
-					htmlFor="email"
-					className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-				>
-					Email address
-				</label>
-				<input
-					type="email"
-					id="email"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					placeholder="john.doe@company.com"
-					required=""
-				/>
-			</div>
-			<div className="mb-6">
-				<label
-					htmlFor="password"
-					className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-				>
-					Password
-				</label>
-				<input
-					type="password"
-					id="password"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					placeholder="•••••••••"
-					required=""
-				/>
-			</div>
-			<div className="mb-6">
-				<label
-					htmlFor="confirm_password"
-					className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
-				>
-					Confirm password
-				</label>
-				<input
-					type="password"
-					id="confirm_password"
-					className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-					placeholder="•••••••••"
-					required=""
-				/>
-			</div>
-			<div className="flex items-start mb-6">
-				<div className="flex items-center h-5">
-					<input
-						id="remember"
-						type="checkbox"
-						defaultValue=""
-						className="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800"
-						required=""
-					/>
-				</div>
-				<label
-					htmlFor="remember"
-					className="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300"
-				>
-					I agree with the{" "}
-					<a
-						href="#"
-						className="text-blue-600 hover:underline dark:text-blue-500"
-					>
-						terms and conditions
-					</a>
-					.
-				</label>
-			</div>
-			<button
-				type="submit"
-				className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-			>
-				Submit
-			</button>
-      </form>
+      <div>
+        { activeTab === 0 && <DoctorUserForm/>}
+        { activeTab === 1 && <DoctorAccademicForm/>}
+        { activeTab === 2 && <DoctorEmployeeForm/>}
+      </div>
 		</div>
 	);
 }
